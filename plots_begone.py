@@ -10,6 +10,7 @@ import shutil
 import platform
 import random
 import aionotify
+import traceback
 
 parser = argparse.ArgumentParser(
     description='A simple script that allows you to maintain old plots while re-plotting and keeping a certain number of '
@@ -68,7 +69,7 @@ def init():
             print('Removing: ' + os.fspath(directory['plots']['old_plots'].pop(0)['path']))
             os.remove(directory['plots']['old_plots'].pop(0)['path'])
 
-    return [directories, chosen_directories]
+    return [directories, directories_with_stats, chosen_directories]
 
 
 def directory_has_enough_space(directory: dict) -> bool:
@@ -263,12 +264,12 @@ async def keep_free(directories, chosen_directories, plot_event, loop):
 async def main(loop):
     print('Running ...')
 
-    [directories, chosen_directories] = init()
+    [directories, directories_with_stats, chosen_directories] = init()
 
     plot_events = asyncio.Queue()
     futures = [
         watch_plots(directories, plot_events, loop),
-        keep_free(directories, chosen_directories, plot_events, loop)
+        keep_free(directories_with_stats, chosen_directories, plot_events, loop)
     ]
 
     await asyncio.gather(*futures)
