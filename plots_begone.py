@@ -243,8 +243,10 @@ async def keep_free(directories, chosen_directories, plot_event, loop):
                 replacement_dir['available_space'] = shutil.disk_usage(replacement_dir['path']).free
 
                 if not directory_has_enough_space(replacement_dir):
-                    print("Removing: " + os.fspath(replacement_dir['plots']['old_plots'].pop(0)['path']))
-                    os.remove(replacement_dir['plots']['old_plots'].pop(0)['path'])
+                    plot_path = replacement_dir['plots']['old_plots'].pop(0)['path']
+
+                    print("Removing: " + os.fspath(plot_path))
+                    os.remove(plot_path)
 
                     replacement_dir['available_space'] = shutil.disk_usage(replacement_dir['path']).free
 
@@ -252,8 +254,10 @@ async def keep_free(directories, chosen_directories, plot_event, loop):
 
                 continue
 
-            print("Removing: " + os.fspath(indexed_directories[plot_dir]['plots']['old_plots'].pop(0)['path']))
-            os.remove(indexed_directories[plot_dir]['plots']['old_plots'].pop(0)['path'])
+            plot_path = indexed_directories[plot_dir]['plots']['old_plots'].pop(0)['path'];
+
+            print("Removing: " + os.fspath(plot_path))
+            os.remove(plot_path)
 
             indexed_directories[plot_dir]['available_space'] = shutil.disk_usage(indexed_directories[plot_dir]['path']).free
 
