@@ -205,7 +205,7 @@ async def watch_plots(directories, plot_event, loop):
     while True:
         event = await watcher.get_event()
 
-        if event.name.endswith(".plot"):
+        if event.name.endswith(args.plot_extension):
             print('New plot: ' + os.path.join(pathlib.Path(event.alias), event.name))
             await plot_event.put(event.alias)
 
