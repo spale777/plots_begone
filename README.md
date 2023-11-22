@@ -5,7 +5,7 @@ Install requirements using pip and then just run ./plots_begone.py --help to get
 In short:
 
 1. Scans all provided dirs
-2. Gathers stats on the dirs, available and free space, number of old plots (specified by -t parameter), number of new plots
+2. Gathers stats on the dirs, available and free space, number of old plots (specified by -c parameter), number of new plots
 3. Shufles the dir list
 4. Selects N number of drives to keep free (specified by -r parameter) and indexes them
 5. Indexed drive free space is examined and if there is not enough to store a single new plot it will delete the oldest "old" plot
