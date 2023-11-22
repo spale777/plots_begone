@@ -56,6 +56,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
+
 def init():
     directories = parse_directories(args.plot_directories)
     directories_with_stats = get_directory_stats(directories)
@@ -66,8 +67,10 @@ def init():
 
     for directory in chosen_directories:
         if not directory_has_enough_space(directory):
-            print('Removing: ' + os.fspath(directory['plots']['old_plots'].pop(0)['path']))
-            os.remove(directory['plots']['old_plots'].pop(0)['path'])
+            file_path = directory['plots']['old_plots'].pop(0)['path']
+            
+            print('Removing: ' + os.fspath(file_path))
+            os.remove(file_path)
 
     return [directories, directories_with_stats, chosen_directories]
 
@@ -254,7 +257,7 @@ async def keep_free(directories, chosen_directories, plot_event, loop):
 
                 continue
 
-            plot_path = indexed_directories[plot_dir]['plots']['old_plots'].pop(0)['path'];
+            plot_path = indexed_directories[plot_dir]['plots']['old_plots'].pop(0)['path']
 
             print("Removing: " + os.fspath(plot_path))
             os.remove(plot_path)
