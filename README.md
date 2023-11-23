@@ -1,5 +1,9 @@
 # PLOTS BEGONE
 
+## Purpose
+Allows you to plot to disks with old plots by deleting old plots only when its necessary to free up space for a new plot.
+
+## Install
 Install requirements using pip and then just run ./plots_begone.py --help to get the list of available parameters and what they do.
 
 In short:
